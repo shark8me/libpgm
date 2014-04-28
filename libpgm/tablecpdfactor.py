@@ -28,6 +28,8 @@ This module provides tools for creating and using an individual factorized repre
 '''
 
 import sys 
+import pandas as pd
+import itertools
 
 class TableCPDFactor(object):
     '''
@@ -262,5 +264,12 @@ class TableCPDFactor(object):
         copy.card = self.card[:]
         return copy
     
-        
+    def printdist(self):
+        '''returns a pandas DataFrame that can be used to pretty-print
+        the CPD'''
+        x=[self.inputbn.Vdata[i]["vals"] for i in self.scope]
+        #creates the cartesian product
+        k=[a + [b] for a,b in zip([list(i) for i in itertools.product(*x[::-1])],self.vals)]
+        df=pd.DataFrame.from_records(k,columns=[i for i in reversed(self.scope)]+['probability'])
+        return df     
     
