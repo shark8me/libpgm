@@ -170,6 +170,10 @@ class TestTableCPDFactor(unittest.TestCase):
         self.assertEqual(copy.scope, self.factor.scope)
         self.assertEqual(copy.stride, self.factor.stride)
         
+    def test_printdist(self):
+        df=self.factor.printdist()
+        self.assertTrue(df.shape[0]==12)
+        
 class TestTableCPDFactorization(unittest.TestCase):
     
     def setUp(self):
